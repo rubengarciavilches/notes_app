@@ -1,26 +1,85 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import GridNote from "./components/GridNote";
+import FloatingNote from "./components/FloatingNote";
+import {Note} from "./types";
+import NewNote from "./components/NewNote";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [activeNote, setActiveNote] = useState<Note | null>(null);
+    const [notes, setNotes] = useState<Note[]>([
+        {
+            id: 1,
+            title: "Note Title",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat."
+        },
+        {
+            id: 2,
+            title: "Note Title",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat."
+        },
+        {
+            id: 3,
+            title: "Note Title",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat."
+        },
+        {
+            id: 4,
+            title: "Note Title",
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat."
+        },
+    ]);
+
+    function handleCloseFloatingNote() {
+        setActiveNote(null);
+    }
+
+    function handleDeleteNote(note: Note) {
+        let newNotes: Note[] = notes.filter((tempNote) => tempNote.id !== note.id)
+        setNotes(newNotes);
+        handleCloseFloatingNote();
+    }
+
+    function handleOpenFloatingNote(note: Note) {
+        setActiveNote(note);
+    }
+
+    function handleSaveNewNote(title: string, content: string) {
+        let tempNote: Note = {id: notes[notes.length - 1].id + 1, title: title, content: content};
+        setNotes(notes.concat(tempNote));
+    }
+
+    function handleUpdateNote(note: Note) {
+        const updatedNotes = notes.map(noteTemp =>
+            noteTemp.id === note.id ? {...noteTemp, title: note.title, content: note.content} : noteTemp
+        );
+        setNotes(updatedNotes);
+    }
+
+    return (
+        <div className="container">
+            <h1>NoteIt</h1>
+            <h2>Easily organize all your notes</h2>
+            <NewNote onSave={handleSaveNewNote}></NewNote>
+            <div className={"grid-container"}>
+                {notes
+                    .slice() //Generates a copy of the array
+                    .sort((a, b) => b.id - a.id)
+                    .map((note) => (
+                        <GridNote key={note.id} note={note} onClick={handleOpenFloatingNote}></GridNote>
+                    ))}
+            </div>
+            <div className={activeNote ? "grayed-out-background" : ""}></div>
+            {activeNote != null && (
+                <FloatingNote
+                    note={activeNote}
+                    onClose={handleCloseFloatingNote}
+                    onDelete={handleDeleteNote}
+                    onSave={handleUpdateNote}
+                ></FloatingNote>
+            )}
+        </div>
+    );
 }
 
 export default App;
