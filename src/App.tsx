@@ -6,8 +6,11 @@ import {Note} from "./types";
 import NewNote from "./components/NewNote";
 import SupabaseAuth from "./components/SupabaseAuth";
 import BasicAuth from "./components/BasicAuth";
+import {getAllNotes} from "./dbcalls";
+import {useSession} from "./SessionContext";
 
 function App() {
+    const {session, setSession} = useSession();
     const [activeNote, setActiveNote] = useState<Note | null>(null);
     const [notes, setNotes] = useState<Note[]>([
         {
@@ -31,6 +34,16 @@ function App() {
             content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat."
         },
     ]);
+
+    useEffect(() => {
+        console.log("Trying to retrieve session")
+        if (!session) return;
+        console.log(session);
+        getAllNotes(session.user.id).then((notes) => {
+            if(!notes) return;
+            setNotes(notes);
+        });
+    }, [session]);
 
     function handleCloseFloatingNote() {
         setActiveNote(null);

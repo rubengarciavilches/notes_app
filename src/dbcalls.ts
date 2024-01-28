@@ -1,4 +1,4 @@
-import {Token, User} from "./types";
+import {Note, Token, User} from "./types";
 import BasicAuth from "./components/BasicAuth";
 
 
@@ -90,14 +90,11 @@ export async function authUser(email: string, password: string):Promise<Token|nu
     }
 }
 
-export async function getAllNotes(userId: string): Promise<User|null> {
-    const url = `http://localhost:8090/api/v1/user/${userId}`;
+export async function getAllNotes(userId: string): Promise<Note[]|null> {
+    const url = `http://localhost:8090/api/v1/note/${userId}`;
     try {
         const response = await fetch(url, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             credentials: 'include',  // Automatically includes cookies
         });
         if (!response.ok)

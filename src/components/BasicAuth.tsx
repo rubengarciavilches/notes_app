@@ -3,11 +3,14 @@ import {Session, Token, User} from "../types";
 import Cookies from "js-cookie";
 import {getUser, register, authUser, registerGuest} from "../dbcalls";
 import {getRandomString} from "../helper";
+import {useSession} from "../SessionContext";
 
 function BasicAuth() {
     //user_id, token, expires_at
-    const [session, setSession] = useState<Session | null>(null);
+    const {session, setSession} = useSession();
+    // const [session, setSession] = useState<Session | null>(null);
     const [openLogin, setOpenLogin] = useState<boolean>(false);
+
 
     useEffect(() => {
         const user_id = Cookies.get("user_id");
@@ -29,6 +32,7 @@ function BasicAuth() {
                         expires_at: expires_at
                     }
                     setSession(curSession);
+
                 })
                 .catch((error) => {
                     console.error('Error:', error);
