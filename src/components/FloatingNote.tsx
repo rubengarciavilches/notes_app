@@ -41,7 +41,7 @@ function FloatingNote({note, onClose, onDelete, onSave}: Props) {
     }
 
     return (
-        <div className={"floating-window thin-border padding-20"}>
+        <div className={"floating-window floating-note thin-border padding-20"}>
             <textarea
                 ref={titleRef}
                 className={"h2-like better-input"}

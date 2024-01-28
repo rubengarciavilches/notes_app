@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import GridNote from "./components/GridNote";
 import FloatingNote from "./components/FloatingNote";
 import {Note} from "./types";
 import NewNote from "./components/NewNote";
+import SupabaseAuth from "./components/SupabaseAuth";
+import BasicAuth from "./components/BasicAuth";
 
 function App() {
     const [activeNote, setActiveNote] = useState<Note | null>(null);
@@ -58,8 +60,13 @@ function App() {
 
     return (
         <div className="container">
-            <h1>NoteIt</h1>
-            <h2>Easily organize all your notes</h2>
+            <div className={"top-menu"}>
+                <div>
+                    <h1>NoteIt</h1>
+                    <h2>Easily organize all your notes</h2>
+                </div>
+                <BasicAuth></BasicAuth>
+            </div>
             <NewNote onSave={handleSaveNewNote}></NewNote>
             <div className={"grid-container"}>
                 {notes

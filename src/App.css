@@ -5,39 +5,51 @@ body {
     line-height: 1.5rem;
 }
 
-.right{
+.top-menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
-.no-margin-padding{
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-margin-padding {
     margin: 0;
     padding: 0;
 }
 
-.container{
+.container {
     display: block;
     margin: auto;
     width: 80%;
 }
 
-.grid-container{
+.grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 340px);
     gap: 10px;
 }
 
-.thin-border{
+.thin-border {
     border: 1px solid #e3d4da;
     border-radius: 10px;
 }
 
-.thin-border h2,h3{
+.thin-border h2, h3 {
     margin: 0;
 }
 
-.new-note{
+.new-note {
     margin: 20px auto;
     max-width: 600px;
     box-shadow: 0 0 10px black;
@@ -61,20 +73,24 @@ body {
     font-weight: bold; /* Adjust the font weight as needed */
 }
 
-.placeholder{
+.placeholder {
     color: rgba(227, 212, 218, 0.5);
 }
 
-.note{
+.note {
     width: 300px;
     cursor: default;
 }
 
-.padding-20{
+.padding-20 {
     padding: 20px;
 }
 
-.note p{
+.padding-48{
+    padding: 48px;
+}
+
+.note p {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -84,11 +100,11 @@ body {
     margin-bottom: 0;
 }
 
-.note:hover{
+.note:hover {
     box-shadow: 0 0 10px black;
 }
 
-.grayed-out-background{
+.grayed-out-background {
     position: absolute;
     top: 0;
     left: 0;
@@ -97,23 +113,31 @@ body {
     background-color: rgba(30, 31, 34, 0.7);
 }
 
-.floating-window{
+.floating-window {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /*Centers the object depending on its size*/
-    width: 90%;
-    max-height: 80%;
-    overflow-y: auto;
     background-color: #1e1f22;
     box-shadow: 0 0 20px black;
 }
 
-.bottom-menu{
+.floating-note {
+    width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+.log-in-window {
+    width: 60%;
+    max-width: 512px;
+}
+
+.bottom-menu {
     min-height: 32px;
 }
 
-.button{
+.button {
     color: #e3d4da;
     background-color: #1e1f22;
     font-size: 16px;
@@ -124,10 +148,10 @@ body {
     margin-left: 10px;
 }
 
-.highlight-shadow{
+.highlight-shadow {
     box-shadow: 0 0 10px #e3d4da;
 }
 
-.button:hover{
+.button:hover {
     background-color: rgba(227, 212, 218, 0.05);
 }
