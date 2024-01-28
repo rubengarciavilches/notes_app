@@ -10,6 +10,8 @@ function BasicAuth() {
     const {session, setSession} = useSession();
     // const [session, setSession] = useState<Session | null>(null);
     const [openLogin, setOpenLogin] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
 
     useEffect(() => {
@@ -32,7 +34,6 @@ function BasicAuth() {
                         expires_at: expires_at
                     }
                     setSession(curSession);
-
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -111,6 +112,18 @@ function BasicAuth() {
         Cookies.set("expires_at", sessionToSave.expires_at, {expires: timeDiffDays});
     }
 
+    function handleEmailChange(event: React.ChangeEvent<HTMLTextAreaElement>){
+        let curEmail = event.target.value;
+        //TODO verify email
+        setEmail(curEmail);
+    }
+
+    function handlePasswordChange(event: React.ChangeEvent<HTMLTextAreaElement>){
+        let curPassword = event.target.value;
+        //TODO verify password
+        setPassword(curPassword);
+    }
+
     if (!session) {
         return (
             <>
@@ -126,12 +139,35 @@ function BasicAuth() {
                     <>
                         <div className={"grayed-out-background"}></div>
                         <div className={"floating-window log-in-window thin-border padding-48"}>
+                            <div>
+                                <h3>Log in to continue</h3>
+                                <p>Email address</p>
+                                <textarea
+                                    className={"better-input"}
+                                    placeholder={"Write your email address"}
+                                    value={email}
+                                    onChange={handleEmailChange}
+                                />
+                                <p>Password</p>
+                                <textarea
+                                    className={"better-input thin-border"}
+                                    placeholder={"Write your password"}
+                                    value={"*".repeat(password.length)}
+                                    onChange={handlePasswordChange}
+                                />
+                            </div>
                             <div className={"bottom-menu"}>
                                 <div className={"center"}>
                                     <button className={"button"} onClick={() => {
-                                        setOpenLogin(false)
-                                    }}>Cancel Login
+                                        loginUser(email, password);
+                                    }}>Login
                                     </button>
+                                </div>
+                                <div className={"center"}>
+                                    {/*<button className={"button"} onClick={() => {*/}
+                                    {/*    setOpenLogin(false)*/}
+                                    {/*}}>Cancel Login*/}
+                                    {/*</button>*/}
                                     <button className={"button"} onClick={loginAsGuest}>Login as Guest
                                     </button>
                                 </div>
