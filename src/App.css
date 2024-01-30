@@ -5,7 +5,7 @@ body {
     line-height: 1.5rem;
 }
 
-.top-menu{
+.top-menu {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -17,7 +17,7 @@ body {
     justify-content: flex-end;
 }
 
-.center{
+.center {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -82,11 +82,15 @@ body {
     cursor: default;
 }
 
+.note p {
+    white-space: pre;
+}
+
 .padding-20 {
     padding: 20px;
 }
 
-.padding-48{
+.padding-48 {
     padding: 48px;
 }
 
@@ -131,6 +135,10 @@ body {
 .log-in-window {
     width: 60%;
     max-width: 512px;
+}
+
+.error-message {
+    color: crimson;
 }
 
 .bottom-menu {

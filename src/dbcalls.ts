@@ -17,7 +17,7 @@ export async function getUser(userId: string): Promise<User|null> {
         return await response.json();
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -43,7 +43,7 @@ export async function register(email: string, password: string, username: string
         return await response.json();
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -61,7 +61,7 @@ export async function registerGuest(): Promise<Token|null> {
         return await response.json();
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -86,7 +86,7 @@ export async function authUser(email: string, password: string):Promise<Token|nu
         return await response.json(); //token, user_id, expires_at
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -102,7 +102,7 @@ export async function getAllNotes(userId: string): Promise<Note[]|null> {
         return await response.json();
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -128,7 +128,7 @@ export async function addNewNote(userId: string, title: string, content: string)
         return await response.json(); //token, user_id, expires_at
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
@@ -154,11 +154,11 @@ export async function updateNote(userId: string, noteId: string, title: string, 
         return await response.json(); //token, user_id, expires_at
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
 
-export async function deleteNote(userId: string, noteId: string):Promise<void> {
+export async function deleteNote(userId: string, noteId: string):Promise<boolean|null> {
     const url = `http://localhost:8090/api/v1/note/${userId}/${noteId}`;
     try {
         const response = await fetch(url, {
@@ -169,8 +169,10 @@ export async function deleteNote(userId: string, noteId: string):Promise<void> {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+
+        return response.ok;
     } catch (error) {
         console.error('Error fetching user:', error);
-        throw error;
+        return null;
     }
 }
