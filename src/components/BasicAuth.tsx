@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Session, Token, User} from "../types";
+import CustomError, {Session, Token, User} from "../types";
 import Cookies from "js-cookie";
 import {getUser, register, authUser, registerGuest} from "../dbcalls";
 import {getRandomString} from "../helper";
@@ -83,7 +83,7 @@ function BasicAuth() {
 
     function loginUser(email: string, password: string) {
         if (!verifyCredentials(false)) return;
-        authUser(email, password).then((token: Token | null) => {
+        authUser(email, password).then((token: Token | undefined) => {
             if (!token) return; //TODO error message
             Cookies.set("token", token.id);
             getUser(token.user_id).then((user) => {
@@ -95,6 +95,9 @@ function BasicAuth() {
                 }
                 updateCredentials(newSession);
             })
+        }).catch((error: CustomError) => {
+            console.error("Promise rejected with error:", error);
+            setCredsErrorMsg(error.message);
         })
     }
 

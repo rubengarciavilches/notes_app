@@ -27,3 +27,11 @@ export interface Token{
     user_id: string;
     expires_at: string;
 }
+
+export default class CustomError extends Error {
+    constructor(message: string, public statusCode?: number) {
+        super(message);
+        this.name = statusCode ? ('APIError-'+statusCode) : 'APIError';
+        this.statusCode = statusCode;
+    }
+}
