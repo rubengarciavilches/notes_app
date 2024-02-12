@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import CustomError, {Session, Token, User} from "../types";
+import CustomError, {Session, Token, User} from "../../types";
 import Cookies from "js-cookie";
-import {getUser, register, authUser, registerGuest} from "../dbcalls";
-import {getRandomString} from "../helper";
-import {useSession} from "../SessionContext";
+import {getUser, register, authUser, registerGuest, checkAPI} from "../../dbcalls";
+import {getRandomString} from "../../helper";
+import {useSession} from "../../SessionContext";
 
 function BasicAuth() {
     enum CredentialsState {
@@ -48,6 +48,14 @@ function BasicAuth() {
                     resetCredentials();
                 });
         }
+
+        //Checks if the API is up and working.
+        checkAPI().then((message) => {
+            console.log(message)
+        }).catch((error: CustomError) => {
+            console.error("Promise rejected with error:", error);
+            setCredsErrorMsg(error.message);
+        });
     }, []);
 
     function resetCredentials() {
@@ -72,6 +80,9 @@ function BasicAuth() {
                 console.log("Registered new user: " + user_id);
                 loginUser(email, password);
             }
+        }).catch((error: CustomError) => {
+            console.error("Promise rejected with error:", error);
+            setCredsErrorMsg(error.message);
         });
     }
 
@@ -98,7 +109,7 @@ function BasicAuth() {
         }).catch((error: CustomError) => {
             console.error("Promise rejected with error:", error);
             setCredsErrorMsg(error.message);
-        })
+        });
     }
 
     function logout() {
@@ -109,7 +120,7 @@ function BasicAuth() {
         // const email = `${getRandomString(16)}@noteitguest-${getRandomString(8)}.com`;
         // const password = "password";
         // signUpNewUser(email, password, "NoteItGuest-" + getRandomString(4));
-        registerGuest().then((token: Token | null) => {
+        registerGuest().then((token) => {
             if (!token) return;
             Cookies.set("token", token.id);
             getUser(token.user_id).then((user) => {
@@ -121,7 +132,13 @@ function BasicAuth() {
                     expires_at: token.expires_at
                 }
                 updateCredentials(curSession);
-            })
+            }).catch((error: CustomError) => {
+                console.error("Promise rejected with error:", error);
+                setCredsErrorMsg(error.message);
+            });
+        }).catch((error: CustomError) => {
+            console.error("Promise rejected with error:", error);
+            setCredsErrorMsg(error.message);
         });
     }
 

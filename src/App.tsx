@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import GridNote from "./components/GridNote";
-import FloatingNote from "./components/FloatingNote";
+import GridNote from "./noteit/components/GridNote";
+import FloatingNote from "./noteit/components/FloatingNote";
 import {Note, User} from "./types";
-import NewNote from "./components/NewNote";
-import SupabaseAuth from "./components/SupabaseAuth";
-import BasicAuth from "./components/BasicAuth";
+import NewNote from "./noteit/components/NewNote";
+import SupabaseAuth from "./noteit/components/SupabaseAuth";
+import BasicAuth from "./noteit/components/BasicAuth";
 import {addNewNote, deleteNote, getAllNotes, updateNote} from "./dbcalls";
 import {useSession} from "./SessionContext";
 import {stringify} from "querystring";
@@ -81,7 +81,7 @@ function App() {
 
     function handleSaveNewNote(title: string, content: string) {
         if (!session) return;
-        addNewNote(session.user.id, title, content).then((note: Note | null) => {
+        addNewNote(session.user.id, title, content).then((note) => {
             if (!note) return;
             console.log("Added note: ", note);
             setNotes(notes.concat(note));
@@ -90,7 +90,7 @@ function App() {
 
     function handleUpdateNote(note: Note) {
         if (!session) return;
-        updateNote(session.user.id, note.id, note.title, note.content).then((note: Note | null) => {
+        updateNote(session.user.id, note.id, note.title, note.content).then((note) => {
             if (!note) return;
             const updatedNotes = notes.map(noteTemp =>
                 noteTemp.id === note.id ? {...noteTemp, title: note.title, content: note.content} : noteTemp

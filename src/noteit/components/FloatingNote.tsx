@@ -1,6 +1,6 @@
 import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
-import {Note} from "../types";
-import {adjustHeight} from "../helper";
+import {Note} from "../../types";
+import {adjustHeight} from "../../helper";
 
 interface Props {
     note: Note;

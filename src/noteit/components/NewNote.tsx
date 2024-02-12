@@ -1,6 +1,6 @@
 import React, {useRef, useState} from "react";
-import {Note} from "../types";
-import {adjustHeight} from "../helper";
+import {Note} from "../../types";
+import {adjustHeight} from "../../helper";
 
 interface Props {
     onSave: (title: string, content: string) => void;
