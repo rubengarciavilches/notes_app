@@ -1,0 +1,168 @@
+$primary-color: #1e1f22;
+$secondary-color: #e3d4da;
+$grayed-out-color: rgba(227, 212, 218, 0.5);
+$error-color: crimson;
+$dark-color: black;
+
+body {
+  background-color: $primary-color;
+  color: $secondary-color;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.5rem;
+}
+
+.top-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-margin-padding {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: block;
+  margin: auto;
+  width: 80%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 340px);
+  gap: 10px;
+}
+
+.thin-border {
+  border: 1px solid $secondary-color;
+  border-radius: 10px;
+
+  h2, h3 {
+    margin: 0;
+  }
+}
+
+.new-note {
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 0 10px $dark-color;
+}
+
+.better-input {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  resize: none;
+  outline: none; /* Remove the default focus outline */
+  background: none;
+  border: none;
+  color: $secondary-color;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.h2-like {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.placeholder {
+  color: $grayed-out-color;
+}
+
+.note {
+  width: 300px;
+  cursor: default;
+
+  p {
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    line-clamp: 12;
+    -webkit-box-orient: vertical;
+    margin-bottom: 0;
+  }
+
+  :hover {
+    box-shadow: 0 0 10px $dark-color;
+  }
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.padding-48 {
+  padding: 48px;
+}
+
+.grayed-out-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 31, 34, 0.7);
+}
+
+.floating-window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /*Centers the object depending on its size*/
+  background-color: $primary-color;
+  box-shadow: 0 0 20px $dark-color;
+}
+
+.floating-note {
+  width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.log-in-window {
+  width: 60%;
+  max-width: 512px;
+}
+
+.error-message {
+  color: $error-color;
+}
+
+.bottom-menu {
+  min-height: 32px;
+}
+
+.button {
+  color: $secondary-color;
+  background-color: $primary-color;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+
+  :hover {
+    background-color: rgba(227, 212, 218, 0.05);
+  }
+}
+
+.highlight-shadow {
+  box-shadow: 0 0 10px $secondary-color;
+}
