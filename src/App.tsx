@@ -7,8 +7,7 @@ import {
     Link,
 } from "react-router-dom";
 import NoteItApp from "./noteit/NoteItApp";
-import DisplayValentineApp from "./valentine/DisplayValentineApp";
-import CreateValentineApp from "./valentine/CreateValentineApp";
+import PortfolioApp from "./portfolio/PortfolioApp";
 
 function getSubdomain() {
     const parts = window.location.hostname.split('.');
@@ -24,17 +23,12 @@ function App() {
     const subdomain = getSubdomain();
     console.log("The subdomain is " + subdomain);
     switch (subdomain) {
-        case "valentine":
-            return <Router>
-                <Routes>
-                    <Route path={"/:valentineId"} Component={DisplayValentineApp}> </Route>
-                    <Route path={"/"} Component={CreateValentineApp}> </Route>
-                </Routes>
-            </Router>
         case "noteit":
             return <NoteItApp></NoteItApp>
+        case "www":
+            return <PortfolioApp></PortfolioApp>
         default:
-            return <NoteItApp></NoteItApp>
+            return <PortfolioApp></PortfolioApp>
     }
 }
 

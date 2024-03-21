@@ -29,6 +29,12 @@ body {
   justify-content: center;
 }
 
+.display-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .no-margin-padding {
   margin: 0;
   padding: 0;
