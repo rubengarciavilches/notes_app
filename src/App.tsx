@@ -1,11 +1,5 @@
 import React from 'react';
 import './App.scss'
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-} from "react-router-dom";
 import NoteItApp from "./noteit/NoteItApp";
 import PortfolioApp from "./portfolio/PortfolioApp";
 

@@ -3,6 +3,12 @@ import './Portfolio.scss';
 function PortfolioApp() {
     // https://www.figma.com/community/file/1233636966947654065/simple-portfolio
 
+    function hireMeMail() {
+        const emailTo: string = "rubengarciavilches@gmail.com";
+        const emailSub: string = "Looking to hire you."
+        window.open('mailto:'+emailTo+'&subject='+emailSub, '_self');
+    }
+
     return (
         <div className={"container width-700"}>
             <div className={"height-200"}></div>
@@ -24,11 +30,21 @@ function PortfolioApp() {
             <div className={"top-menu"}>
                 <button
                     className={"button"}
-                    onClick={()=>{
+                    onClick={() => {
                         window.open("./resume_ruben_garcia_vilches.pdf", '_blank')
                     }}
-                >Get my Resume</button>
-                <button className={"button"}>Hire me</button>
+                >Get my Resume
+                </button>
+                <button className={"button"}
+                        onClick={() => {
+                            window.location.href = `https://noteit.rubengv.com`;
+                        }}
+                >Notes App
+                </button>
+                <button className={"button"}
+                        onClick={hireMeMail}
+                >Hire me
+                </button>
             </div>
         </div>
     );
