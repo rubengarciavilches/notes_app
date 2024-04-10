@@ -27,7 +27,7 @@ function PortfolioApp() {
                 <p>Enrolled in Computer Engineering at the Polytechnic University of Madrid (UPM).</p>
                 <p>Worked at Accenture as a Developer.</p>
             </div>
-            <div className={"top-menu"}>
+            <div className={"top-menu"}> 
                 <button
                     className={"button"}
                     onClick={() => {
