@@ -1,6 +1,6 @@
 import GridNote from "./components/GridNote";
 import FloatingNote from "./components/FloatingNote";
-import {Note} from "../types";
+import {Note, Apps} from "../types";
 import NewNote from "./components/NewNote";
 import BasicAuth from "./components/BasicAuth";
 import {addNewNote, deleteNote, getAllNotes, updateNote} from "../dbcalls";
@@ -8,7 +8,10 @@ import {useSession} from "../SessionContext";
 import React, {useEffect, useState} from "react";
 import './NoteIt.scss'
 
-function NoteItApp(){
+interface Props {
+    toggleApp: (name: Apps) => void
+}
+function NoteItApp({toggleApp}: Props){
     const {session, setSession} = useSession();
     const [activeNote, setActiveNote] = useState<Note | null>(null);
     const [notes, setNotes] = useState<Note[]>([

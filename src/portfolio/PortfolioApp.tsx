@@ -1,6 +1,11 @@
 import './Portfolio.scss';
+import {Apps} from "../types";
 
-function PortfolioApp() {
+interface Props {
+    toggleApp: (name: Apps) => void
+}
+
+function PortfolioApp({toggleApp}: Props) {
     // https://www.figma.com/community/file/1233636966947654065/simple-portfolio
 
     function hireMeMail() {
@@ -27,7 +32,7 @@ function PortfolioApp() {
                 <p>Enrolled in Computer Engineering at the Polytechnic University of Madrid (UPM).</p>
                 <p>Worked at Accenture as a Developer.</p>
             </div>
-            <div className={"top-menu"}> 
+            <div className={"top-menu"}>
                 <button
                     className={"button"}
                     onClick={() => {
@@ -37,7 +42,8 @@ function PortfolioApp() {
                 </button>
                 <button className={"button"}
                         onClick={() => {
-                            window.location.href = `https://noteit.rubengv.com`;
+                            // window.location.href = `https://noteit.rubengv.com`;
+                            toggleApp(Apps.NoteItApp);
                         }}
                 >Notes App
                 </button>

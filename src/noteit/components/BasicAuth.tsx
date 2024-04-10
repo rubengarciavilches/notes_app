@@ -49,13 +49,17 @@ function BasicAuth() {
                 });
         }
 
-        //Checks if the API is up and working.
-        checkAPI().then((message) => {
-            console.log(message)
-        }).catch((error: CustomError) => {
-            console.error("Promise rejected with error:", error);
-            setCredsErrorMsg(error.message);
-        });
+        const intervalId = setInterval(() => {
+            //Checks if the API is up and working.
+            checkAPI().then((message) => {
+                console.log(message)
+                setCredsErrorMsg("");
+                clearInterval(intervalId);
+            }).catch((error: CustomError) => {
+                console.error("Promise rejected with error:", error);
+                setCredsErrorMsg(error.message);
+            });
+        }, 1000)
     }, []);
 
     function resetCredentials() {
