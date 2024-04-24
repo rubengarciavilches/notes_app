@@ -72,9 +72,12 @@ function BasicAuth() {
     }
 
     function resetCookies() {
-        Cookies.remove("user_id");
-        Cookies.remove("token");
-        Cookies.remove("expires_at");
+        Cookies.set("user_id", "");
+        Cookies.set("token", "");
+        Cookies.set("expires_at", "");
+        // Cookies.remove("user_id");
+        // Cookies.remove("token");
+        // Cookies.remove("expires_at");
     }
 
     function signUpNewUser(email: string, password: string, username: string) {
