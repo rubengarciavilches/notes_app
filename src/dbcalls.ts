@@ -1,6 +1,7 @@
 import CustomError, {Note, Token, User} from "./types";
 
-const apiURL = "http://localhost:8090/api/v1/";
+// const apiURL = "http://localhost:8090/api/v1/";
+const apiURL = "https://rubengv-spring.fly.dev/";
 
 type BaseResponse<T> = {
     content?: T;
