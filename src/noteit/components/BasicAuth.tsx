@@ -25,7 +25,7 @@ function BasicAuth() {
 
     useEffect(() => {
         const user_id = Cookies.get("user_id");
-        const token = Cookies.get("token");
+        const token = Cookies.get("token"); 
         const expires_at = Cookies.get("expires_at");
 
         if (!user_id || !token || !expires_at) {
