@@ -1,7 +1,7 @@
 import CustomError, {Note, Token, User} from "./types";
 
-// const apiURL = "http://localhost:8080/api/v1/";
-const apiURL = "https://rubengv-spring.fly.dev/api/v1/";
+const apiURL = "http://localhost:8080/api/v1/";
+// const apiURL = "https://rubengv-spring.fly.dev/api/v1/";
 
 type BaseResponse<T> = {
     content?: T;
@@ -10,7 +10,7 @@ type BaseResponse<T> = {
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
-async function tryFetch<Content, APIResponse extends BaseResponse<Content>>(name: string, url: string, method: Method, body: {} | undefined, hasCredentials: boolean = true): Promise<Content | undefined> {
+async function tryFetch<Content, APIResponse extends BaseResponse<Content>>(name: string, url: string, method: Method, body: {} | undefined, token: string | undefined = undefined): Promise<Content | undefined> {
     let response: Response;
     try {
         const requestOptions: RequestInit = {
@@ -23,9 +23,8 @@ async function tryFetch<Content, APIResponse extends BaseResponse<Content>>(name
             }
             requestOptions.body = JSON.stringify(body);
         }
-        if (hasCredentials)
-            requestOptions.credentials = "include";
-        response = await fetch(`${apiURL}${url}`, requestOptions);
+        const tokenParam = token ? `?token=${token}` : "";
+        response = await fetch(`${apiURL}${url}${tokenParam}`, requestOptions);
     } catch (error) {
         throw new CustomError(`Error during ${name}, couldn't reach API, please try again later.`, 503);
     }
@@ -44,37 +43,37 @@ async function tryFetch<Content, APIResponse extends BaseResponse<Content>>(name
 }
 
 export async function checkAPI(): Promise<string | undefined> {
-    return tryFetch("checkAPI", "", "GET", undefined, false);
+    return tryFetch("checkAPI", "", "GET", undefined);
 }
 
-export async function getUser(userId: string): Promise<User | undefined> {
-    return tryFetch("getUser", `user/${userId}`, "GET", undefined);
+export async function getUser(userId: string, token: string): Promise<User | undefined> {
+    return tryFetch("getUser", `user/${userId}`, "GET", undefined, token);
 }
 
 export async function register(email: string, password: string, username: string): Promise<string | undefined> {
-    return tryFetch("signUp", `user/signup`, "POST", {email, password, username}, false);
+    return tryFetch("signUp", `user/signup`, "POST", {email, password, username});
 }
 
 export async function registerGuest(): Promise<Token | undefined> {
-    return tryFetch("signUpGuest", "user/signup/guest", "POST", undefined, false);
+    return tryFetch("signUpGuest", "user/signup/guest", "POST", undefined);
 }
 
 export async function authUser(email: string, password: string): Promise<Token | undefined> {
-    return tryFetch("auth", "auth", "POST", {email, password}, false);
+    return tryFetch("auth", "auth", "POST", {email, password});
 }
 
-export async function getAllNotes(userId: string): Promise<Note[] | undefined> {
-    return tryFetch("getAllNotes", `note/${userId}`, "GET", undefined);
+export async function getAllNotes(userId: string, token: string): Promise<Note[] | undefined> {
+    return tryFetch("getAllNotes", `note/${userId}`, "GET", undefined, token);
 }
 
-export async function addNewNote(userId: string, title: string, content: string): Promise<Note | undefined> {
-    return tryFetch("addNote", `note/${userId}`, "POST", {title, content});
+export async function addNewNote(userId: string, title: string, content: string, token: string): Promise<Note | undefined> {
+    return tryFetch("addNote", `note/${userId}`, "POST", {title, content}, token);
 }
 
-export async function updateNote(userId: string, noteId: string, title: string, content: string): Promise<Note | undefined> {
-    return tryFetch("updateNote", `note/${userId}/${noteId}`, "PUT", {title, content});
+export async function updateNote(userId: string, noteId: string, title: string, content: string, token: string): Promise<Note | undefined> {
+    return tryFetch("updateNote", `note/${userId}/${noteId}`, "PUT", {title, content}, token);
 }
 
-export async function deleteNote(userId: string, noteId: string): Promise<boolean | undefined> {
-    return tryFetch("deleteNote", `note/${userId}/${noteId}`, "DELETE", undefined);
+export async function deleteNote(userId: string, noteId: string, token: string): Promise<boolean | undefined> {
+    return tryFetch("deleteNote", `note/${userId}/${noteId}`, "DELETE", undefined, token);
 }

@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import CustomError, {Session, Token, User} from "../../types";
-import Cookies from "js-cookie";
 import {getUser, register, authUser, registerGuest, checkAPI} from "../../dbcalls";
-import {getRandomString} from "../../helper";
 import {useSession} from "../../SessionContext";
 
 function BasicAuth() {
@@ -24,14 +22,14 @@ function BasicAuth() {
     const [credsErrorMsg, setCredsErrorMsg] = useState<string>("");
 
     useEffect(() => {
-        const user_id = Cookies.get("user_id");
-        const token = Cookies.get("token"); 
-        const expires_at = Cookies.get("expires_at");
+        const user_id = localStorage.getItem("user_id");
+        const token = localStorage.getItem("token");
+        const expires_at = localStorage.getItem("expires_at");
 
         if (!user_id || !token || !expires_at) {
             resetCredentials();
         } else {
-            getUser(user_id)
+            getUser(user_id, token)
                 .then((user) => {
                     if (!user) {
                         return;
@@ -64,20 +62,17 @@ function BasicAuth() {
 
     function resetCredentials() {
         setSession(null);
-        resetCookies();
+        resetAuth();
         setCredentialsState(CredentialsState.LoggingIn);
         setEmail("");
         setPassword("");
         setUsername("");
     }
 
-    function resetCookies() {
-        Cookies.set("user_id", "");
-        Cookies.set("token", "");
-        Cookies.set("expires_at", "");
-        // Cookies.remove("user_id");
-        // Cookies.remove("token");
-        // Cookies.remove("expires_at");
+    function resetAuth() {
+        localStorage.setItem("user_id", "");
+        localStorage.setItem("token", "");
+        localStorage.setItem("expires_at", "");
     }
 
     function signUpNewUser(email: string, password: string, username: string) {
@@ -95,7 +90,7 @@ function BasicAuth() {
 
     function updateCredentials(session: Session) {
         setSession(session);
-        saveCookies(session);
+        saveAuth(session);
         setCredentialsState(CredentialsState.LoggedIn);
     }
 
@@ -103,8 +98,8 @@ function BasicAuth() {
         if (!verifyCredentials(false)) return;
         authUser(email, password).then((token: Token | undefined) => {
             if (!token) return; //TODO error message
-            Cookies.set("token", token.id);
-            getUser(token.user_id).then((user) => {
+            localStorage.setItem("token", token.id);
+            getUser(token.user_id, token.id).then((user) => {
                 if (!user) return;
                 const newSession: Session = {
                     user: user,
@@ -129,8 +124,8 @@ function BasicAuth() {
         // signUpNewUser(email, password, "NoteItGuest-" + getRandomString(4));
         registerGuest().then((token) => {
             if (!token) return;
-            Cookies.set("token", token.id);
-            getUser(token.user_id).then((user) => {
+            localStorage.setItem("token", token.id);
+            getUser(token.user_id, token.id).then((user) => {
                 if (!user) return;
                 console.log("Registered new guest user: " + user.username);
                 const curSession: Session = {
@@ -149,15 +144,12 @@ function BasicAuth() {
         });
     }
 
-    function saveCookies(sessionToSave: Session) {
+    function saveAuth(sessionToSave: Session) {
         if (!sessionToSave) return;
 
-        const expireDate = new Date(sessionToSave.expires_at).getTime();
-        const nowDate = new Date().getTime();
-        const timeDiffDays = Math.floor((expireDate - nowDate) / (24 * 60 * 60 * 1000));
-        Cookies.set("user_id", sessionToSave.user.id, {expires: timeDiffDays});
-        Cookies.set("token", sessionToSave.token, {expires: timeDiffDays});
-        Cookies.set("expires_at", sessionToSave.expires_at, {expires: timeDiffDays});
+        localStorage.setItem("user_id", sessionToSave.user.id);
+        localStorage.setItem("token", sessionToSave.token);
+        localStorage.setItem("expires_at", sessionToSave.expires_at);
     }
 
     function openCredentialsScreen() {

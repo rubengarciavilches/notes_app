@@ -56,7 +56,7 @@ function NoteItApp({toggleApp}: Props){
             return;
         }
         console.log(session);
-        getAllNotes(session.user.id).then((notes) => {
+        getAllNotes(session.user.id, session.token).then((notes) => {
             if (!notes) return;
             setNotes(notes);
         });
@@ -68,7 +68,7 @@ function NoteItApp({toggleApp}: Props){
 
     function handleDeleteNote(note: Note) {
         if(!session) return;
-        deleteNote(session.user.id, note.id).then(() => {
+        deleteNote(session.user.id, note.id, session.token).then(() => {
             console.log("Note deleted.");
             let newNotes: Note[] = notes.filter((tempNote) => tempNote.id !== note.id)
             setNotes(newNotes);
@@ -82,7 +82,7 @@ function NoteItApp({toggleApp}: Props){
 
     function handleSaveNewNote(title: string, content: string) {
         if (!session) return;
-        addNewNote(session.user.id, title, content).then((note) => {
+        addNewNote(session.user.id, title, content, session.token).then((note) => {
             if (!note) return;
             console.log("Added note: ", note);
             setNotes(notes.concat(note));
@@ -91,7 +91,7 @@ function NoteItApp({toggleApp}: Props){
 
     function handleUpdateNote(note: Note) {
         if (!session) return;
-        updateNote(session.user.id, note.id, note.title, note.content).then((note) => {
+        updateNote(session.user.id, note.id, note.title, note.content, session.token).then((note) => {
             if (!note) return;
             const updatedNotes = notes.map(noteTemp =>
                 noteTemp.id === note.id ? {...noteTemp, title: note.title, content: note.content} : noteTemp
