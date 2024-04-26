@@ -10,7 +10,7 @@ function App() {
     const [language, setLanguage] = useState<string>("en");
 
     useEffect(() => {
-        if(i18n.language !== undefined && (i18n.language === "en" || i18n.language === "es"))
+        if (i18n.language !== undefined && (i18n.language === "en" || i18n.language === "es"))
             setLanguage(i18n.language);
     }, []);
 
@@ -31,7 +31,11 @@ function App() {
     function languageButton() {
         return (
             <div className={"top-right-abs"}>
-                <button className={"button"} onClick={() => toggleLanguage()}>
+                <button className={"button display-row"} onClick={() => toggleLanguage()}>
+                    <img
+                        src={language === "en" ? "./icons8-great-britain-48.png" : "./icons8-spain-48.png"}
+                        alt={language === "en" ? "GB Flag" : "Spain Flag"} height={"24px"}
+                    ></img>
                     {lngs[language].capsName}
                 </button>
             </div>
