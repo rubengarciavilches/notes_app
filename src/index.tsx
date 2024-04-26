@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {SessionProvider} from "./SessionContext";
 import './localization';
+import './types';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
