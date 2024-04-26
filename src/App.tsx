@@ -2,42 +2,43 @@ import React, {useState} from 'react';
 import './App.scss'
 import NoteItApp from "./noteit/NoteItApp";
 import PortfolioApp from "./portfolio/PortfolioApp";
-import {Apps} from "./types";
+import {Apps, lngs} from "./types";
+import i18n from "i18next";
 
 function App() {
-    const [activeApp, setActiveApp] = useState<Apps>(Apps.PortfolioApp)
-    function getSubdomain() {
-        const parts = window.location.hostname.split('.');
-        console.log(parts);
-        if (parts.length > 1) {
-            return parts[0];
-        } else {
-            return 'www'; // Default subdomain
-        }
-    }
+    const [activeApp, setActiveApp] = useState<Apps>(Apps.PortfolioApp);
+    const [language, setLanguage] = useState<string>(i18n.language);
 
     function toggleApp(name: Apps){
         setActiveApp(name)
     }
 
-    switch (activeApp) {
-        case Apps.NoteItApp:
-            return <NoteItApp toggleApp={toggleApp}></NoteItApp>;
-        case Apps.PortfolioApp:
-        default:
-            return <PortfolioApp toggleApp={toggleApp}></PortfolioApp>
+    function toggleLanguage(){
+        if (language === "en"){
+            i18n.changeLanguage("es");
+            setLanguage("es");
+        } else{
+            i18n.changeLanguage("en");
+            setLanguage("en");
+        }
     }
 
-    // const subdomain = getSubdomain();
-    // console.log("The subdomain is " + subdomain);
-    // switch (subdomain) {
-    //     case "noteit":
-    //         return <NoteItApp></NoteItApp>
-    //     case "www":
-    //         return <PortfolioApp></PortfolioApp>
-    //     default:
-    //         return <PortfolioApp></PortfolioApp>
-    // }
+    switch (activeApp) {
+        case Apps.NoteItApp:
+            return <div>
+                <NoteItApp toggleApp={toggleApp}></NoteItApp>
+            </div>;
+        case Apps.PortfolioApp:
+        default:
+            return <div>
+                <div className={"top-right-abs"}>
+                    <button className={"button"} onClick={() => toggleLanguage()}>
+                        {lngs[language].capsName}
+                    </button>
+                </div>
+                <PortfolioApp toggleApp={toggleApp}></PortfolioApp>
+            </div>
+    }
 }
 
 export default App;

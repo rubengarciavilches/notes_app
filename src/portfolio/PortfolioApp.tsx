@@ -1,5 +1,6 @@
 import './Portfolio.scss';
-import {Apps} from "../types";
+import {Apps, lngs} from "../types";
+import {useTranslation} from "react-i18next";
 
 interface Props {
     toggleApp: (name: Apps) => void
@@ -7,6 +8,7 @@ interface Props {
 
 function PortfolioApp({toggleApp}: Props) {
     // https://www.figma.com/community/file/1233636966947654065/simple-portfolio
+    const {t, i18n} = useTranslation();
 
     function hireMeMail() {
         const emailTo: string = "rubengarciavilches@gmail.com";
@@ -17,39 +19,37 @@ function PortfolioApp({toggleApp}: Props) {
     return (
         <div className={"container width-700"}>
             <div className={"height-200"}></div>
-            {/*<div className={"center"}>*/}
-            {/*    <h4>about</h4>*/}
-            {/*    <h4>resume</h4>*/}
-            {/*    <h4>projects</h4>*/}
-            {/*    <h4>contact</h4>*/}
-            {/*</div>*/}
             <div>
-                <h1>Hello, I am Ruben</h1>
-                <h1>I design and build things</h1></div>
+                <h1>{t("portfolio.greetings.part1")}</h1>
+                <h1>{t("portfolio.greetings.part2")}</h1></div>
             <div className={"width-70p"}>
-                {/*<h2>About me</h2>*/}
-                <p>University student with an affinity to tinkering, weightlifting, video games, cooking and baking.</p>
-                <p>Enrolled in Computer Engineering at the Polytechnic University of Madrid (UPM).</p>
-                <p>Worked at Accenture as a Developer.</p>
+                <p>{t("portfolio.about_me.part1")}</p>
+                <p>{t("portfolio.about_me.part2")}</p>
+                <p>{t("portfolio.about_me.part3")}</p>
             </div>
             <div className={"top-menu"}>
                 <button
                     className={"button"}
                     onClick={() => {
-                        window.open("./resume_ruben_garcia_vilches.pdf", '_blank')
+                        window.open(t("portfolio.buttons.resume_link"), '_blank')
                     }}
-                >Get my Resume
+                >{t("portfolio.buttons.resume")}
                 </button>
                 <button className={"button"}
                         onClick={() => {
-                            // window.location.href = `https://noteit.rubengv.com`;
                             toggleApp(Apps.NoteItApp);
                         }}
-                >Notes App
+                >{t("portfolio.buttons.notes_app")}
+                </button>
+                <button className={"button"}
+                        onClick={() => {
+                            window.open("https://github.com/rubengarciavilches", '_blank')
+                        }}
+                >{t("portfolio.buttons.github")}
                 </button>
                 <button className={"button"}
                         onClick={hireMeMail}
-                >Hire me
+                >{t("portfolio.buttons.hire_me")}
                 </button>
             </div>
         </div>

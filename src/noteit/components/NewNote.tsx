@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import {Note} from "../../types";
 import {adjustHeight} from "../../helper";
+import {t} from "i18next";
 
 interface Props {
     onSave: (title: string, content: string) => void;
@@ -49,7 +50,7 @@ function NewNote({onSave}: Props) {
         <div className={"new-note thin-border padding-20"}>
             {!editingNote && (
                 <h2 className={"placeholder"} onClick={handleTitleClick}>
-                    Take a note...
+                    {t("notes_app.note.note_placeholder")}
                 </h2>
             )}
             {editingNote && (
@@ -57,21 +58,21 @@ function NewNote({onSave}: Props) {
                     <textarea
                         ref={titleRef}
                         className={"h2-like better-input"}
-                        placeholder={"Title"}
+                        placeholder={t("notes_app.note.title")}
                         value={title}
                         onChange={handleTitleChange}
                     />
                     <textarea
                         ref={contentRef}
                         className={"better-input"}
-                        placeholder={"Take a note..."}
+                        placeholder={t("notes_app.note.note_placeholder")}
                         value={content}
                         onChange={handleContentChange}
                     />
                     <div className={"bottom-menu"}>
                         <div className={"right"}>
-                            <button className={"button"} onClick={handleSaveButton}>Save</button>
-                            <button className={"button"} onClick={handleCloseButton}>Close</button>
+                            <button className={"button"} onClick={handleSaveButton}>{t("notes_app.note.save")}</button>
+                            <button className={"button"} onClick={handleCloseButton}>{t("notes_app.note.close")}</button>
                         </div>
                     </div>
                 </div>

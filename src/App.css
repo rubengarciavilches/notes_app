@@ -163,4 +163,18 @@ body {
   box-shadow: 0 0 10px #e3d4da;
 }
 
+.margin-right-32 {
+  margin-right: 32px;
+}
+
+.clickable-img :hover {
+  cursor: pointer;
+}
+
+.top-right-abs {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
 /*# sourceMappingURL=App.css.map */

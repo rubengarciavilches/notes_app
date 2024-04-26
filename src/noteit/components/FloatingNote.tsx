@@ -1,6 +1,7 @@
 import React, {MutableRefObject, useEffect, useRef, useState} from 'react';
 import {Note} from "../../types";
 import {adjustHeight} from "../../helper";
+import {t} from "i18next";
 
 interface Props {
     note: Note;
@@ -45,14 +46,14 @@ function FloatingNote({note, onClose, onDelete, onSave}: Props) {
             <textarea
                 ref={titleRef}
                 className={"h2-like better-input"}
-                placeholder={"Title"}
+                placeholder={t("notes_app.note.title")}
                 value={title}
                 onChange={handleTitleChange}
             />
             <textarea
                 ref={contentRef}
                 className={"better-input"}
-                placeholder={"Take a note..."}
+                placeholder={t("notes_app.note.note_placeholder")}
                 value={content}
                 onChange={handleContentChange}
             />
@@ -60,25 +61,27 @@ function FloatingNote({note, onClose, onDelete, onSave}: Props) {
                 <div className={"right"}>
                     {confirmDelete && (
                         <div className={"right"}>
-                            <p className={"no-margin-padding"}>Confirm delete?</p>
+                            <p className={"no-margin-padding"}>{t("notes_app.note.confirm_delete")}</p>
                             <button className={"button"} onClick={() =>
                                 setConfirmDelete(false)
-                            }>Cancel
+                            }>{t("notes_app.note.cancel")}
                             </button>
                             <button className={"button"} onClick={() => {
                                 onDelete(note);
-                            }}>Delete
+                            }}>{t("notes_app.note.delete")}
                             </button>
                         </div>
                     )}
                     {!confirmDelete && (
                         <div className={"right"}>
                             {unsavedChanges && (<p className={"no-margin-padding"}>There are unsaved changes!</p>)}
-                            <button className={unsavedChanges ? "button highlight-shadow" : "button"} onClick={handleSave}>Save
+                            <button className={unsavedChanges ? "button highlight-shadow" : "button"}
+                                    onClick={handleSave}>
+                                {t("notes_app.note.save")}
                             </button>
                             <button className={"button"} onClick={() => {
                                 setConfirmDelete(true);
-                            }}>Delete
+                            }}>{t("notes_app.note.delete")}
                             </button>
                             <button className={"button"} onClick={onClose}>Close</button>
                         </div>

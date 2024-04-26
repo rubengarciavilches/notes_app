@@ -3,6 +3,11 @@ export enum Apps {
     "NoteItApp",
 }
 
+export const lngs: { [key: string]: { nativeName: string, capsName: string, enName: string } } = {
+    en: {nativeName: "English", capsName: "EN", enName: "English"},
+    es: {nativeName: "Español", capsName: "ES", enName: "Spanish"},
+}
+
 export interface Note {
     id: string;
     user_id: string;
@@ -27,7 +32,7 @@ export interface User {
     user_type: string;
 }
 
-export interface Token{
+export interface Token {
     id: string;
     user_id: string;
     expires_at: string;
@@ -36,7 +41,7 @@ export interface Token{
 export default class CustomError extends Error {
     constructor(message: string, public statusCode?: number) {
         super(message);
-        this.name = statusCode ? ('APIError-'+statusCode) : 'APIError';
+        this.name = statusCode ? ('APIError-' + statusCode) : 'APIError';
         this.statusCode = statusCode;
     }
 }

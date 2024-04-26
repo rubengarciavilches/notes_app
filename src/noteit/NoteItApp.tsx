@@ -3,6 +3,7 @@ import FloatingNote from "./components/FloatingNote";
 import {Note, Apps} from "../types";
 import NewNote from "./components/NewNote";
 import BasicAuth from "./components/BasicAuth";
+import {useTranslation} from 'react-i18next';
 import {addNewNote, deleteNote, getAllNotes, updateNote} from "../dbcalls";
 import {useSession} from "../SessionContext";
 import React, {useEffect, useState} from "react";
@@ -11,47 +12,16 @@ import './NoteIt.scss'
 interface Props {
     toggleApp: (name: Apps) => void
 }
-function NoteItApp({toggleApp}: Props){
+
+function NoteItApp({toggleApp}: Props) {
     const {session, setSession} = useSession();
     const [activeNote, setActiveNote] = useState<Note | null>(null);
-    const [notes, setNotes] = useState<Note[]>([
-        {
-            id: "1",
-            user_id: "1",
-            title: "Note Title",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat.",
-            created_at: "2024-01-28T14:23:34.768883",
-            updated_at: "2024-01-28T14:23:34.768883"
-        },
-        {
-            id: "2",
-            user_id: "1",
-            title: "Note Title",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat.",
-            created_at: "2024-01-28T14:23:34.768883",
-            updated_at: "2024-01-28T14:23:34.768883"
-        },
-        {
-            id: "3",
-            user_id: "1",
-            title: "Note Title",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat.",
-            created_at: "2024-01-28T14:23:34.768883",
-            updated_at: "2024-01-28T14:23:34.768883"
-        },
-        {
-            id: "4",
-            user_id: "1",
-            title: "Note Title",
-            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum varius nulla. Aliquam eu volutpatpurus. Nullam luctus feugiat viverra. Curabitur a mauris scelerisque, egestas justo sed, lobortis erat.",
-            created_at: "2024-01-28T14:23:34.768883",
-            updated_at: "2024-01-28T14:23:34.768883"
-        },
-    ]);
+    const [notes, setNotes] = useState<Note[]>([]);
+    const {t} = useTranslation();
 
     useEffect(() => {
         console.log("Trying to retrieve session")
-        if (!session){
+        if (!session) {
             setNotes([]);
             return;
         }
@@ -67,7 +37,7 @@ function NoteItApp({toggleApp}: Props){
     }
 
     function handleDeleteNote(note: Note) {
-        if(!session) return;
+        if (!session) return;
         deleteNote(session.user.id, note.id, session.token).then(() => {
             console.log("Note deleted.");
             let newNotes: Note[] = notes.filter((tempNote) => tempNote.id !== note.id)
@@ -104,8 +74,14 @@ function NoteItApp({toggleApp}: Props){
         <div className="container">
             <div className={"top-menu"}>
                 <div>
-                    <h1>NoteIt</h1>
-                    <h2>Easily organize all your notes</h2>
+                    <div className={"display-row"}>
+                        <div className={"display-row clickable-img"}>
+                            <img className={"margin-right-32"} src={"./logo512.png"} alt={"birb"} height={"48px"}
+                                 onClick={() => toggleApp(Apps.PortfolioApp)}></img>
+                        </div>
+                        <h1>NoteIt</h1>
+                    </div>
+                    <h2>{t("notes_app.header")}</h2>
                 </div>
                 <BasicAuth></BasicAuth>
             </div>

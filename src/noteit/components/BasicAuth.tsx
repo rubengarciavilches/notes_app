@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import CustomError, {Session, Token, User} from "../../types";
 import {getUser, register, authUser, registerGuest, checkAPI} from "../../dbcalls";
 import {useSession} from "../../SessionContext";
+import {t} from "i18next";
 
 function BasicAuth() {
     enum CredentialsState {
@@ -197,7 +198,7 @@ function BasicAuth() {
             <>
                 {(credentialsState === CredentialsState.LoggingIn) && (
                     <div className={"right"}>
-                        <button className={"button highlight-shadow"} onClick={openCredentialsScreen}>Log In
+                        <button className={"button highlight-shadow"} onClick={openCredentialsScreen}>{t("notes_app.basic_auth.log_in")}
                         </button>
                     </div>
                 )}
@@ -209,30 +210,30 @@ function BasicAuth() {
                             <div>
                                 {credentialsState === CredentialsState.SigningUp && (
                                     <div>
-                                        <h3>Sign up</h3>
-                                        <p>Username</p>
+                                        <h3>{t("notes_app.basic_auth.sign_up")}</h3>
+                                        <p>{t("notes_app.basic_auth.username")}</p>
                                         <textarea
                                             className={"better-input thin-border"}
-                                            placeholder={"Write your username"}
+                                            placeholder={t("notes_app.basic_auth.username_placeholder")}
                                             value={username}
                                             onChange={handleUsernameChange}
                                         />
                                     </div>
                                 )}
                                 {(credentialsState === CredentialsState.LoggingIn) && (
-                                    <h3>Log in to continue</h3>
+                                    <h3>{t("notes_app.basic_auth.log_in_msg")}</h3>
                                 )}
-                                <p>Email address</p>
+                                <p>{t("notes_app.basic_auth.email")}</p>
                                 <textarea
                                     className={"better-input"}
-                                    placeholder={"Write your email address"}
+                                    placeholder={t("notes_app.basic_auth.email_placeholder")}
                                     value={email}
                                     onChange={handleEmailChange}
                                 />
-                                <p>Password</p>
+                                <p>{t("notes_app.basic_auth.password")}</p>
                                 <textarea
                                     className={"better-input thin-border"}
-                                    placeholder={"Write your password"}
+                                    placeholder={t("notes_app.basic_auth.password_placeholder")}
                                     value={"*".repeat(password.length)}
                                     onChange={handlePasswordChange}
                                 />
@@ -245,10 +246,10 @@ function BasicAuth() {
                                     <div className={"center"}>
                                         <button className={"button"} onClick={() => {
                                             loginUser(email, password);
-                                        }}>Login
+                                        }}>{t("notes_app.basic_auth.log_in")}
                                         </button>
                                     </div>
-                                    <p className={"center"}>Don't have an account?</p>
+                                    <p className={"center"}>{t("notes_app.basic_auth.no_account_msg")}</p>
                                     <div className={"center"}>
                                         {/*<button className={"button"} onClick={() => {*/}
                                         {/*    setOpenLogin(false)*/}
@@ -256,9 +257,9 @@ function BasicAuth() {
                                         {/*</button>*/}
                                         <button className={"button"} onClick={() => {
                                             setCredentialsState(CredentialsState.SigningUp);
-                                        }}>Sign Up!
+                                        }}>{t("notes_app.basic_auth.sign_up")}
                                         </button>
-                                        <button className={"button"} onClick={loginAsGuest}>Login as Guest
+                                        <button className={"button"} onClick={loginAsGuest}>{t("notes_app.basic_auth.log_in_guest")}
                                         </button>
                                     </div>
                                 </div>
@@ -268,14 +269,14 @@ function BasicAuth() {
                                     <div className={"center"}>
                                         <button className={"button"} onClick={() => {
                                             signUpNewUser(email, password, username);
-                                        }}>Sign Up!
+                                        }}>{t("notes_app.basic_auth.sign_up")}
                                         </button>
                                     </div>
-                                    <p className={"center"}>Already have an account?</p>
+                                    <p className={"center"}>{t("notes_app.basic_auth.have_account_msg")}</p>
                                     <div className={"center"}>
                                         <button className={"button"} onClick={() => {
                                             setCredentialsState(CredentialsState.LoggingIn);
-                                        }}>Log In
+                                        }}>{t("notes_app.basic_auth.log_in")}
                                         </button>
                                     </div>
                                 </div>
@@ -288,8 +289,8 @@ function BasicAuth() {
     } else {
         return (
             <div className={"right"}>
-                <p>You are logged in as {session.user.username}</p>
-                <button className={"button"} onClick={logout}>Log Out</button>
+                <p>{t("notes_app.basic_auth.logged_in_msg")} {session.user.username}</p>
+                <button className={"button"} onClick={logout}>{t("notes_app.basic_auth.log_out")}</button>
             </div>
         )
     }
