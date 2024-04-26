@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss'
 import NoteItApp from "./noteit/NoteItApp";
 import PortfolioApp from "./portfolio/PortfolioApp";
@@ -7,7 +7,12 @@ import i18n from "i18next";
 
 function App() {
     const [activeApp, setActiveApp] = useState<Apps>(Apps.PortfolioApp);
-    const [language, setLanguage] = useState<string>(i18n.language !== undefined ? i18n.language : "en");
+    const [language, setLanguage] = useState<string>("en");
+
+    useEffect(() => {
+        if(i18n.language !== undefined && (i18n.language === "en" || i18n.language === "es"))
+            setLanguage(i18n.language);
+    }, []);
 
     function toggleApp(name: Apps) {
         setActiveApp(name)
