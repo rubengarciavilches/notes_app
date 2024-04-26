@@ -7,7 +7,7 @@ import i18n from "i18next";
 
 function App() {
     const [activeApp, setActiveApp] = useState<Apps>(Apps.PortfolioApp);
-    const [language, setLanguage] = useState<string>(i18n.language);
+    const [language, setLanguage] = useState<string>(i18n.language || "en");
 
     function toggleApp(name: Apps) {
         setActiveApp(name)
