@@ -26,9 +26,10 @@ function PortfolioApp({toggleApp}: Props) {
                 <p>{t("portfolio.about_me.part1")}</p>
                 <p>{t("portfolio.about_me.part2")}</p>
                 <p>{t("portfolio.about_me.part3")}</p>
+                <p>{t("portfolio.about_me.part4")}</p>
             </div>
             <div className={"top-menu"}>
-                <button
+            <button
                     className={"button"}
                     onClick={() => {
                         window.open(t("portfolio.buttons.resume_link"), '_blank')

@@ -30,6 +30,7 @@ i18n
                             part1: "University student with an affinity to tinkering, weightlifting, video games, cooking and baking.",
                             part2: "Enrolled in Computer Engineering at the Polytechnic University of Madrid (UPM).",
                             part3: "Worked at Accenture as a Developer.",
+                            part4: "Applied Associate's Degree in Multiplatform App Development",
                         },
                         buttons: {
                             resume: "Get my Resume",
@@ -79,7 +80,8 @@ i18n
                         about_me: {
                             part1: 'Estudiante universitario con afinidad por experimentar, levantar pesas, videojuegos, cocina y repostería.',
                             part2: 'Matriculado en Ingeniería Informática en la Universidad Politécnica de Madrid (UPM).',
-                            part3: 'Trabajé en Accenture como Desarrollador.'
+                            part3: 'Trabajé en Accenture como Desarrollador.',
+                            part4: "Grado Superior en Desarrollo de Aplicaciones Multiplataforma.",
                         },
                         buttons: {
                             resume: 'Mi Currículum',
