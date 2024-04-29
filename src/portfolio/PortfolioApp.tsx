@@ -29,7 +29,7 @@ function PortfolioApp({toggleApp}: Props) {
                 <p>{t("portfolio.about_me.part4")}</p>
             </div>
             <div className={"top-menu"}>
-            <button
+                <button
                     className={"button"}
                     onClick={() => {
                         window.open(t("portfolio.buttons.resume_link"), '_blank')
@@ -47,6 +47,12 @@ function PortfolioApp({toggleApp}: Props) {
                             window.open("https://github.com/rubengarciavilches", '_blank')
                         }}
                 >{t("portfolio.buttons.github")}
+                </button>
+                <button className={"button"}
+                        onClick={() => {
+                            window.open("https://www.linkedin.com/in/rub%C3%A9n-garc%C3%ADa-vilches-596142163/", '_blank')
+                        }}
+                >{t("portfolio.buttons.linkedin")}
                 </button>
                 <button className={"button"}
                         onClick={hireMeMail}

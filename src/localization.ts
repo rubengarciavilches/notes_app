@@ -28,7 +28,7 @@ i18n
                         },
                         about_me: {
                             part1: "University student with an affinity to tinkering, weightlifting, video games, cooking and baking.",
-                            part2: "Enrolled in Computer Engineering at the Polytechnic University of Madrid (UPM).",
+                            part2: "Pursing a BE in Computer Science at the Polytechnic University of Madrid (UPM).",
                             part3: "Worked at Accenture as a Developer.",
                             part4: "Applied Associate's Degree in Multiplatform App Development",
                         },
@@ -37,6 +37,7 @@ i18n
                             resume_link: "./resume_en.pdf",
                             notes_app: "Notes App",
                             github: "My Github",
+                            linkedin: "LinkedIn",
                             hire_me: "Hire Me",
                         }
                     },
@@ -88,6 +89,7 @@ i18n
                             resume_link: './resume_es.pdf',
                             notes_app: 'App de Notas',
                             github: 'Mi Github',
+                            linkedin: "LinkedIn",
                             hire_me: 'Contrátame'
                         }
                     },
