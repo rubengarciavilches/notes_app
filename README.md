@@ -1,9 +1,44 @@
-# Getting Started with Create React App
+# Portfolio & Notes App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the front end part of a project aimed at creating a simple Notes App, it uses React, HTML, SCSS and API calls.
+In addition to the Notes App, there is my portfolio, just aiming at providing anyone who visits with access to the 
+Notes App and resources relevant to me.\
+Please refer to the back-end part of the project in order to have a working Notes App, available at my GitHub: 
+https://github.com/rubengarciavilches/rubengv_spring
 
-## Available Scripts
+### Notes App: 
+It allows the user to create, read, update and delete any number of notes, which are constantly updated with the server,
+in addition to that, it manages the authentication of users while using the app, restricting access only to the relevant
+parts, it allows the use of temporary accounts for the purpose of testing the website.
 
+### Portfolio:
+It _very elegantly_ (basic HTML & CSS) displays information relevant to Rubén García, a person very close to me, 
+and whom I would genuinely recommend to any and all recruiters or developers currently looking at this project
+(it is me, I am Rubén), it is accessible in English and Spanish.
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing 
+purposes. See deployment for notes on how to deploy the project on a live system.
+
+### Prerequisites
+
+You will need to have installed Node.js and npm for this project to work, you can do so from https://nodejs.org/en/download, 
+it includes npm, you will also need an editor of your choosing, [VS Code](https://code.visualstudio.com/) is very often 
+recommended, although this project was developed using [WebStorm](https://www.jetbrains.com/webstorm/), free for
+Students and Teachers.
+
+If the ``npm`` commands do not work, you might have to restart the terminal or editor being used.
+
+### Installing
+
+You need to follow very few steps in order to get this project working.\
+Open the project in your preferred editor or in the terminal, and install all the node dependencies.
+Please take note that you have to run this code at the directory where `package.json` is present.
+
+### `npm install`
+
+Now all the dependencies should have been installed, let your editor or IDE some time to update its indexes.\
 In the project directory, you can run:
 
 ### `npm start`
@@ -14,33 +49,40 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+All parts of the Portfolio will work at this moment, the Notes App will require the back-end to be running and reachable.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You may have to specify your current back-end port or website in `src/dbcalls.ts`
 
-### `npm run build`
+## Deployment
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For the deployment of this part of the project, Vercel was chosen for the simplicity it provides, you may follow the 
+instructions for that at:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You may also deploy the front-end manually, using commands like the following to build it, and deploy it locally:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm install
+npm run build
 
-### `npm run eject`
+npm install -g serve
+serve -s build &
+```
 
-**GridNote: this is a one-way operation. Once you `eject`, you can’t go back!**
+This approach may need further work, we recommend the Vercel approach or other pre-built solutions.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Built With
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* [React](https://react.dev/) - The web framework used.
+* [SCSS](https://sass-lang.com/) - Better management of style files.
+* [Vercel](https://vercel.com/) - Deployment website chosen.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## License
 
-## Learn More
+This project is licensed under the MIT License.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Acknowledgments
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* [Icons8](https://icons8.com/) - Icons used.
+* [Stackoverflow](https://sass-lang.com/) - Better management of style files.
+* [Vercel](https://vercel.com/) - Deployment website chosen.
+* [Dog](https://www.rubengv.com/dog.jpg) - For emotional support and code review.
