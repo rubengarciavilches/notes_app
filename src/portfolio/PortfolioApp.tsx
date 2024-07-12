@@ -50,7 +50,7 @@ function PortfolioApp({toggleApp}: Props) {
                 </button>
                 <button className={"button"}
                         onClick={() => {
-                            window.open("https://www.linkedin.com/in/rub%C3%A9n-garc%C3%ADa-vilches-596142163/", '_blank')
+                            window.open("https://www.linkedin.com/in/ruben-garcia-vilches-596142163/", '_blank')
                         }}
                 >{t("portfolio.buttons.linkedin")}
                 </button>
